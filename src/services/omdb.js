@@ -1,19 +1,25 @@
-export const omdbSearch = (q, page = 1, opts = {}) => {
-  const sp = new URLSearchParams({
-    apikey: import.meta.env.VITE_OMDB_KEY,
+// src/services/omdb.js
+console.log("OMDB KEY =", import.meta.env.VITE_OMDB_KEY);
+
+const API_KEY = import.meta.env.VITE_OMDB_KEY;
+const BASE = "https://www.omdbapi.com/";
+
+export function omdbSearch(q, page = 1, extra = {}) {
+  const params = new URLSearchParams({
+    apikey: API_KEY,
     s: q,
-    page: String(page)
-  })
-  if (opts.type) sp.set('type', opts.type)
-  if (opts.y)    sp.set('y', String(opts.y))
-  return `https://www.omdbapi.com/?${sp.toString()}`
+    page: String(page),
+    type: extra.type || "",
+    y: extra.y || "",
+  });
+  return `${BASE}?${params.toString()}`;
 }
 
-export const omdbById = (id) => {
-  const sp = new URLSearchParams({
-    apikey: import.meta.env.VITE_OMDB_KEY,
+export function omdbById(id) {
+  const params = new URLSearchParams({
+    apikey: API_KEY,
     i: id,
-    plot: 'full'
-  })
-  return `https://www.omdbapi.com/?${sp.toString()}`
+    plot: "full",
+  });
+  return `${BASE}?${params.toString()}`;
 }
