@@ -4,7 +4,7 @@ import Navbar from './Navbar.jsx'
 export default function Layout() {
   return (
     <div className="app">
-      <NavBar />
+      <Navbar />
       <main className="container" aria-live="polite">
         <Outlet />
       </main>
